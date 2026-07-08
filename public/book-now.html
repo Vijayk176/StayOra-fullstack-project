@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book a Room - Stayora</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+
+<div id="navbar"></div>
+
+<section class="hero-section py-5">
+  <h1 class="fw-bold">Book Your Stay</h1>
+  <p class="lead mb-0">Pick your dates and room type - our team will confirm your booking shortly.</p>
+</section>
+
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-7">
+
+      <div id="alertBox"></div>
+
+      <!-- STEP 1: Dates + Room Type + Availability -->
+      <div class="card p-4 shadow-sm mb-4" id="searchCard">
+        <h4 class="mb-3">1. Choose dates & room type</h4>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label">Check-In Date</label>
+            <input type="date" class="form-control" id="check_in_date" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Check-Out Date</label>
+            <input type="date" class="form-control" id="check_out_date" required>
+          </div>
+          <div class="col-md-12">
+            <label class="form-label">Room Type</label>
+            <select class="form-select" id="room_type_id" required>
+              <option value="">Loading room types...</option>
+            </select>
+          </div>
+        </div>
+        <button class="btn btn-stayora mt-3" id="checkAvailabilityBtn">Check Availability</button>
+        <div id="availabilityResult" class="mt-3"></div>
+      </div>
+
+      <!-- STEP 2: Guest Details (hidden until a room is confirmed available) -->
+      <div class="card p-4 shadow-sm d-none" id="detailsCard">
+        <h4 class="mb-3">2. Your details</h4>
+        <form id="bookingForm">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">Full Name</label>
+              <input type="text" class="form-control" id="full_name" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Phone</label>
+              <input type="text" class="form-control" id="phone" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">CNIC / Passport No.</label>
+              <input type="text" class="form-control" id="cnic_passport" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">City</label>
+              <input type="text" class="form-control" id="city">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Country</label>
+              <input type="text" class="form-control" id="country" value="Pakistan">
+            </div>
+          </div>
+          <button type="submit" class="btn btn-stayora w-100 mt-4">Confirm Booking Request</button>
+        </form>
+      </div>
+
+      <!-- STEP 3: Confirmation -->
+      <div class="card p-4 shadow-sm d-none" id="confirmCard">
+        <div class="text-center">
+          <h2>✅ Request Received!</h2>
+          <p id="confirmText" class="lead"></p>
+          <a href="index.html" class="btn btn-stayora mt-2">Back to Home</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p class="mb-0">&copy; 2026 Stayora Hotel Management System | Semester Project</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/api.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/booknow.js"></script>
+<script>renderPublicNavbar('booknow');</script>
+</body>
+</html>

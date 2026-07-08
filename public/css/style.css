@@ -1,0 +1,93 @@
+/* =====================================================================
+   style.css - Stayora custom theme (on top of Bootstrap 5)
+   ===================================================================== */
+
+:root {
+  --stayora-primary: #0f3d3e;
+  --stayora-accent: #d4af37;
+  --stayora-bg: #f7f7f5;
+}
+
+body {
+  background-color: var(--stayora-bg);
+  font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+}
+
+.navbar-stayora {
+  background-color: var(--stayora-primary);
+}
+
+.navbar-stayora .navbar-brand,
+.navbar-stayora .nav-link {
+  color: #ffffff !important;
+}
+
+.navbar-stayora .nav-link:hover {
+  color: var(--stayora-accent) !important;
+}
+
+.btn-stayora {
+  background-color: var(--stayora-primary);
+  color: #fff;
+  border: none;
+}
+
+.btn-stayora:hover {
+  background-color: #0b2b2c;
+  color: var(--stayora-accent);
+}
+
+.hero-section {
+  background: linear-gradient(rgba(15,61,62,0.85), rgba(15,61,62,0.85)),
+              url('https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1600&q=80');
+  background-size: cover;
+  background-position: center;
+  color: white;
+  padding: 100px 20px;
+  text-align: center;
+}
+
+.card-stat {
+  border-left: 5px solid var(--stayora-primary);
+  border-radius: 8px;
+}
+
+.card-stat h3 {
+  color: var(--stayora-primary);
+  font-weight: 700;
+}
+
+.sidebar {
+  min-height: calc(100vh - 56px);
+  background-color: #fff;
+  border-right: 1px solid #e5e5e5;
+}
+
+.sidebar .nav-link {
+  color: #333;
+  border-radius: 6px;
+  margin-bottom: 4px;
+}
+
+.sidebar .nav-link.active,
+.sidebar .nav-link:hover {
+  background-color: var(--stayora-primary);
+  color: #fff !important;
+}
+
+table thead {
+  background-color: var(--stayora-primary);
+  color: #fff;
+}
+
+.badge-available { background-color: #198754; }
+.badge-occupied { background-color: #dc3545; }
+.badge-maintenance { background-color: #ffc107; color: #212529; }
+
+footer {
+  background-color: var(--stayora-primary);
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
+  margin-top: 40px;
+}

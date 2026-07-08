@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payments - Stayora</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+
+<div id="navbar"></div>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2 px-0" id="sidebar"></div>
+
+    <div class="col-md-10 p-4">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 id="pageTitle">Payments</h2>
+        <button class="btn btn-stayora" id="addBtn">+ Add Payment</button>
+      </div>
+
+      <input type="text" class="form-control mb-3 w-50" id="searchInput" placeholder="Search payments...">
+
+      <div class="card p-3 shadow-sm">
+        <div class="table-responsive">
+          <table class="table table-hover align-middle">
+            <thead id="tableHead"></thead>
+            <tbody id="tableBody"></tbody>
+          </table>
+        </div>
+        <ul class="pagination justify-content-center" id="pagination"></ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add/Edit Modal -->
+<div class="modal fade" id="recordModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalTitle">Add Payment</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="recordForm"></form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button class="btn btn-stayora" id="saveBtn">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/api.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/crud.js"></script>
+<script>
+  initCrudPage({
+    pageKey: 'payments',
+    title: 'Payment',
+    endpoint: '/payments',
+    pk: 'payment_id',
+    columns: [
+      { key: 'payment_id', label: 'ID' },
+      { key: 'booking_id', label: 'Booking ID' },
+      { key: 'amount_paid', label: 'Amount Paid', money: true },
+      { key: 'payment_method', label: 'Method' },
+      { key: 'payment_status', label: 'Status' }
+    ],
+    formFields: [
+      { key: 'booking_id', label: 'Booking ID', type: 'number', required: true },
+      { key: 'amount_paid', label: 'Amount Paid', type: 'number', step: '0.01', required: true },
+      { key: 'payment_method', label: 'Payment Method', type: 'select', required: true, options: [
+        { value: 'Cash', label: 'Cash' },
+        { value: 'Card', label: 'Card' },
+        { value: 'BankTransfer', label: 'Bank Transfer' },
+        { value: 'Online', label: 'Online' }
+      ]},
+      { key: 'payment_status', label: 'Status', type: 'select', required: true, options: [
+        { value: 'Paid', label: 'Paid' },
+        { value: 'Pending', label: 'Pending' },
+        { value: 'Refunded', label: 'Refunded' }
+      ]}
+    ]
+  });
+</script>
+</body>
+</html>

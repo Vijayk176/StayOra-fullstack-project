@@ -1,0 +1,172 @@
+{
+  "info": {
+    "name": "Stayora - Smart Hotel Management System",
+    "description": "Postman collection for testing the Stayora REST API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:5000/api" },
+    { "key": "token", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"full_name\": \"Test User\",\n  \"email\": \"testuser@stayora.com\",\n  \"password\": \"Password123\",\n  \"role_name\": \"Receptionist\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/auth/register", "host": ["{{baseUrl}}"], "path": ["auth", "register"] }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@stayora.com\",\n  \"password\": \"Password123\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/auth/login", "host": ["{{baseUrl}}"], "path": ["auth", "login"] }
+          }
+        },
+        {
+          "name": "Get Profile",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/auth/profile", "host": ["{{baseUrl}}"], "path": ["auth", "profile"] }
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/auth/logout", "host": ["{{baseUrl}}"], "path": ["auth", "logout"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Guests",
+      "item": [
+        {
+          "name": "Get All Guests",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/guests?page=1&limit=10", "host": ["{{baseUrl}}"], "path": ["guests"], "query": [{ "key": "page", "value": "1" }, { "key": "limit", "value": "10" }] }
+          }
+        },
+        {
+          "name": "Get Guest By ID",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/guests/1", "host": ["{{baseUrl}}"], "path": ["guests", "1"] }
+          }
+        },
+        {
+          "name": "Create Guest",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{token}}" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"full_name\": \"New Guest\",\n  \"email\": \"newguest@example.com\",\n  \"phone\": \"03001234567\",\n  \"cnic_passport\": \"42101-9999999-9\",\n  \"city\": \"Karachi\",\n  \"country\": \"Pakistan\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/guests", "host": ["{{baseUrl}}"], "path": ["guests"] }
+          }
+        },
+        {
+          "name": "Update Guest",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{token}}" }],
+            "body": { "mode": "raw", "raw": "{\n  \"city\": \"Lahore\"\n}" },
+            "url": { "raw": "{{baseUrl}}/guests/1", "host": ["{{baseUrl}}"], "path": ["guests", "1"] }
+          }
+        },
+        {
+          "name": "Delete Guest",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/guests/1", "host": ["{{baseUrl}}"], "path": ["guests", "1"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Rooms",
+      "item": [
+        { "name": "Get All Rooms", "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }], "url": { "raw": "{{baseUrl}}/rooms", "host": ["{{baseUrl}}"], "path": ["rooms"] } } },
+        { "name": "Filter Rooms by Status", "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }], "url": { "raw": "{{baseUrl}}/rooms?status=Available", "host": ["{{baseUrl}}"], "path": ["rooms"], "query": [{ "key": "status", "value": "Available" }] } } },
+        { "name": "Create Room", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{token}}" }], "body": { "mode": "raw", "raw": "{\n  \"room_number\": \"501\",\n  \"room_type_id\": 1,\n  \"floor_number\": 5,\n  \"status\": \"Available\"\n}" }, "url": { "raw": "{{baseUrl}}/rooms", "host": ["{{baseUrl}}"], "path": ["rooms"] } } },
+        { "name": "Update Room", "request": { "method": "PUT", "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{token}}" }], "body": { "mode": "raw", "raw": "{\n  \"status\": \"Maintenance\"\n}" }, "url": { "raw": "{{baseUrl}}/rooms/1", "host": ["{{baseUrl}}"], "path": ["rooms", "1"] } } },
+        { "name": "Delete Room", "request": { "method": "DELETE", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }], "url": { "raw": "{{baseUrl}}/rooms/1", "host": ["{{baseUrl}}"], "path": ["rooms", "1"] } } }
+      ]
+    },
+    {
+      "name": "Bookings",
+      "item": [
+        { "name": "Get All Bookings", "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }], "url": { "raw": "{{baseUrl}}/bookings", "host": ["{{baseUrl}}"], "path": ["bookings"] } } },
+        { "name": "Create Booking", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{token}}" }], "body": { "mode": "raw", "raw": "{\n  \"guest_id\": 1,\n  \"room_id\": 1,\n  \"check_in_date\": \"2026-08-01\",\n  \"check_out_date\": \"2026-08-03\",\n  \"total_amount\": 16000,\n  \"booking_status\": \"Confirmed\"\n}" }, "url": { "raw": "{{baseUrl}}/bookings", "host": ["{{baseUrl}}"], "path": ["bookings"] } } },
+        { "name": "Update Booking", "request": { "method": "PUT", "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{token}}" }], "body": { "mode": "raw", "raw": "{\n  \"booking_status\": \"CheckedIn\"\n}" }, "url": { "raw": "{{baseUrl}}/bookings/1", "host": ["{{baseUrl}}"], "path": ["bookings", "1"] } } },
+        { "name": "Delete Booking", "request": { "method": "DELETE", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }], "url": { "raw": "{{baseUrl}}/bookings/1", "host": ["{{baseUrl}}"], "path": ["bookings", "1"] } } }
+      ]
+    },
+    {
+      "name": "Payments",
+      "item": [
+        { "name": "Get All Payments", "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }], "url": { "raw": "{{baseUrl}}/payments", "host": ["{{baseUrl}}"], "path": ["payments"] } } },
+        { "name": "Create Payment", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{token}}" }], "body": { "mode": "raw", "raw": "{\n  \"booking_id\": 1,\n  \"amount_paid\": 5000,\n  \"payment_method\": \"Cash\",\n  \"payment_status\": \"Paid\"\n}" }, "url": { "raw": "{{baseUrl}}/payments", "host": ["{{baseUrl}}"], "path": ["payments"] } } }
+      ]
+    },
+    {
+      "name": "Employees",
+      "item": [
+        { "name": "Get All Employees", "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }], "url": { "raw": "{{baseUrl}}/employees", "host": ["{{baseUrl}}"], "path": ["employees"] } } },
+        { "name": "Create Employee", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Authorization", "value": "Bearer {{token}}" }], "body": { "mode": "raw", "raw": "{\n  \"full_name\": \"New Employee\",\n  \"email\": \"newemp@stayora.com\",\n  \"phone\": \"03211112222\",\n  \"department_id\": 1,\n  \"designation\": \"Receptionist\",\n  \"salary\": 35000\n}" }, "url": { "raw": "{{baseUrl}}/employees", "host": ["{{baseUrl}}"], "path": ["employees"] } } }
+      ]
+    },
+    {
+      "name": "Services",
+      "item": [
+        { "name": "Get All Services", "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }], "url": { "raw": "{{baseUrl}}/services", "host": ["{{baseUrl}}"], "path": ["services"] } } }
+      ]
+    },
+    {
+      "name": "Dashboard",
+      "item": [
+        { "name": "Summary", "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }], "url": { "raw": "{{baseUrl}}/dashboard/summary", "host": ["{{baseUrl}}"], "path": ["dashboard", "summary"] } } },
+        { "name": "Monthly Bookings", "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }], "url": { "raw": "{{baseUrl}}/dashboard/bookings", "host": ["{{baseUrl}}"], "path": ["dashboard", "bookings"] } } },
+        { "name": "Monthly Revenue", "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }], "url": { "raw": "{{baseUrl}}/dashboard/revenue", "host": ["{{baseUrl}}"], "path": ["dashboard", "revenue"] } } },
+        { "name": "Rooms Status", "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }], "url": { "raw": "{{baseUrl}}/dashboard/rooms-status", "host": ["{{baseUrl}}"], "path": ["dashboard", "rooms-status"] } } },
+        { "name": "Services Stats", "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }], "url": { "raw": "{{baseUrl}}/dashboard/services-stats", "host": ["{{baseUrl}}"], "path": ["dashboard", "services-stats"] } } },
+        { "name": "Recent Bookings", "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }], "url": { "raw": "{{baseUrl}}/dashboard/recent-bookings", "host": ["{{baseUrl}}"], "path": ["dashboard", "recent-bookings"] } } }
+      ]
+    },
+    {
+      "name": "Public Booking (No Auth)",
+      "item": [
+        { "name": "Get Room Types", "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/public/room-types", "host": ["{{baseUrl}}"], "path": ["public", "room-types"] } } },
+        { "name": "Check Availability", "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/public/availability?room_type_id=1&check_in_date=2026-08-01&check_out_date=2026-08-03", "host": ["{{baseUrl}}"], "path": ["public", "availability"], "query": [{ "key": "room_type_id", "value": "1" }, { "key": "check_in_date", "value": "2026-08-01" }, { "key": "check_out_date", "value": "2026-08-03" }] } } },
+        { "name": "Create Public Booking", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"full_name\": \"Customer Test\",\n  \"email\": \"customer.test@example.com\",\n  \"phone\": \"03451234567\",\n  \"cnic_passport\": \"42101-5555555-5\",\n  \"city\": \"Karachi\",\n  \"country\": \"Pakistan\",\n  \"room_type_id\": 1,\n  \"check_in_date\": \"2026-08-01\",\n  \"check_out_date\": \"2026-08-03\"\n}" }, "url": { "raw": "{{baseUrl}}/public/book", "host": ["{{baseUrl}}"], "path": ["public", "book"] } } }
+      ]
+    },
+    {
+      "name": "Contact Messages (Public)",
+      "item": [
+        { "name": "Submit Contact Message", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"full_name\": \"Website Visitor\",\n  \"email\": \"visitor@example.com\",\n  \"subject\": \"Inquiry\",\n  \"message\": \"Do you have rooms available?\"\n}" }, "url": { "raw": "{{baseUrl}}/contact-messages", "host": ["{{baseUrl}}"], "path": ["contact-messages"] } } }
+      ]
+    }
+  ]
+}
